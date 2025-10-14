@@ -22,7 +22,77 @@ Il regroupe :
 ---
 
 ## 🏗️ Architecture
+```mermaid
+flowchart LR
+    %% === Dashboard ===
+    subgraph Dashboard["🖥️ Dashboard"]
+        D1[Composants React / Streamlit]
+        D2[KPIs / Alertes / Graphiques]
+        D3[Chatbot Widget]
+    end
 
+    %% === Chatbot ===
+    subgraph Chatbot["🤖 Chatbot (Rasa / Botpress)"]
+        C1[Intents FR/EN]
+        C2[Stories / Flows]
+        C3[Actions / API Calls]
+    end
+
+    %% === API Gateway ===
+    subgraph Gateway["🌐 API Gateway (FastAPI)"]
+        G1[Routes Dashboard / Chatbot]
+        G2[WebSocket & Auth]
+        G3[Logging]
+    end
+
+    %% === Backend ===
+    subgraph Backend["🏦 Backend Services"]
+        B1[Scoring API]
+        B2[Fraude API]
+        B3[Auth / Keycloak]
+    end
+
+    %% === Monitoring ===
+    subgraph Monitoring["📊 Monitoring & Logs"]
+        M1[Prometheus Metrics]
+        M2[Grafana Dashboards]
+        M3[Loki Logs]
+    end
+
+    %% === Flux
+    D1 -->|API Calls| G1
+    D2 -->|API Calls| G1
+    D3 -->|Messages| G1
+
+    C3 -->|API Calls| B1
+    C3 -->|API Calls| B2
+    C3 -->|Auth| B3
+
+    G1 --> B1
+    G1 --> B2
+    G1 --> B3
+    G2 --> C3
+
+    %% Monitoring connections
+    D1 --> M1
+    D2 --> M1
+    D3 --> M1
+    G1 --> M1
+    G2 --> M1
+    B1 --> M1
+    B2 --> M1
+    B3 --> M1
+
+    G1 --> M3
+    B1 --> M3
+    B2 --> M3
+    B3 --> M3
+
+    M1 --> M2
+    M3 --> M2
+```
+---
+## flux 2
 ```mermaid
 flowchart LR
     %% === Utilisateurs ===
@@ -67,6 +137,7 @@ flowchart LR
     F --> J
 
 ```
+
 ---
 ## 📁 Arborescence complète — Interface Utilisateur (Dashboard + Chatbot)
 ```bash
@@ -174,3 +245,105 @@ interface_utilisateur/
 ├── .env                                    # Variables d’environnement (API_URL, KEYCLOAK_URL, etc.)
 └── README.md                               # Documentation complète module Interface Utilisateur
 ```
+
+```mermaid
+flowchart TD
+    %% === Frontend / Dashboard ===
+    subgraph Dashboard["🖥️ Dashboard (React / Streamlit)"]
+        A1[Header.jsx] 
+        A2[Sidebar.jsx]
+        A3[KPI_Cards.jsx]
+        A4[AlertsTable.jsx]
+        A5[ScoreTrendsChart.jsx]
+        A6[ExportButtons.jsx]
+        A7[ChatbotWidget.jsx]
+        A8[Loader.jsx]
+        A9[DashboardPage.jsx]
+        A10[ReportsPage.jsx]
+    end
+
+    %% === Chatbot ===
+    subgraph Chatbot["🤖 Chatbot (Rasa / Botpress)"]
+        C1[NLU / Intents FR/EN]
+        C2[Stories / Flows]
+        C3[Actions.py / Scripts JS]
+        C4[Domain.yml]
+        C5[Endpoints.yml / Webhook]
+        C6[Docker Container]
+    end
+
+    %% === API Gateway ===
+    subgraph APIGateway["🌐 API Gateway (FastAPI)"]
+        G1[dashboard_routes.py]
+        G2[chatbot_routes.py]
+        G3[auth_routes.py]
+        G4[websocket_manager.py]
+        G5[security.py / JWT OAuth2]
+        G6[logger.py]
+        G7[config.py]
+    end
+
+    %% === Backend ===
+    subgraph Backend["🏦 Backend Services"]
+        B1[Scoring API]
+        B2[Fraude API]
+        B3[Auth / Keycloak]
+    end
+
+    %% === Monitoring ===
+    subgraph Monitoring["📊 Monitoring & Logs"]
+        M1[Prometheus Metrics]
+        M2[Grafana Dashboards]
+        M3[Loki Logs]
+    end
+
+    %% === Flux Frontend → Backend ===
+    A1 -->|Navigation & filtres| G1
+    A2 -->|Navigation & filtres| G1
+    A3 -->|KPIs API call| G1
+    A4 -->|Alertes API call| G1
+    A5 -->|Scores API call| G1
+    A6 -->|Export request| G1
+    A7 -->|Chatbot message| G2
+    A9 -->|Page context| G1
+    A10 -->|Reports request| G1
+
+    %% === API Gateway → Backend ===
+    G1 --> B1
+    G1 --> B2
+    G2 --> C6
+    G2 --> B1
+    G2 --> B2
+    G3 --> B3
+    G4 --> C6
+
+    %% === Chatbot interne ===
+    C1 --> C2
+    C2 --> C3
+    C3 -->|Call APIs| B1
+    C3 -->|Call APIs| B2
+    C3 -->|Auth| B3
+
+    %% === Monitoring connections ===
+    A1 --> M1
+    A2 --> M1
+    A3 --> M1
+    A4 --> M1
+    A5 --> M1
+    A7 --> M1
+    G1 --> M1
+    G2 --> M1
+    B1 --> M1
+    B2 --> M1
+    B3 --> M1
+
+    G1 --> M3
+    G2 --> M3
+    B1 --> M3
+    B2 --> M3
+    B3 --> M3
+
+    M1 --> M2
+    M3 --> M2
+```
+
