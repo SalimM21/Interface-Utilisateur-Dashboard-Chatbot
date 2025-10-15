@@ -93,7 +93,7 @@ Il regroupe :
 
 ---
 
-## Flux globale du Module 
+## ♻️ Flux globale du Module 
 ```mermaid
 flowchart LR
     %% === Utilisateurs ===
