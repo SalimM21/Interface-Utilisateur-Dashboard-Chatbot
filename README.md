@@ -405,7 +405,7 @@ docker-compose up --build
 - Tests d’intégration Dashboard + Chatbot via API Gateway
 - Vérification logs et métriques dans Grafana
 
-📈 Suivi et monitoring
+## 📈 Suivi et monitoring
 
 - **Prometheus** : collecte métriques backend, dashboard et chatbot
 - **Grafana** : dashboards de supervision
