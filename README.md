@@ -92,7 +92,7 @@ flowchart LR
     M3 --> M2
 ```
 ---
-## flux 2
+## Flux globale du Module 
 ```mermaid
 flowchart LR
     %% === Utilisateurs ===
