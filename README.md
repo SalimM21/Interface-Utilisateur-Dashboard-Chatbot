@@ -1,5 +1,26 @@
 # 🤖 Interface Utilisateur — Dashboard + Chatbot
 
+## 🧩 Description
+
+Ce module fournit une **interface utilisateur complète** pour la plateforme de scoring/fraude.  
+Il regroupe :
+
+1. **Dashboard interactif** (User Story 5.1)
+   - Visualisation des scores, alertes et KPIs (fraude, AUC, latence)
+   - Export PDF/Excel
+2. **Chatbot conversationnel** (User Story 5.2)
+   - Interaction via Rasa ou Botpress
+   - Intents : demander score, alerte, rapport
+   - Multilingue (FR/EN)
+3. **Intégration Dashboard + Chatbot** (User Story 5.3)
+   - Chatbot accessible depuis le dashboard
+   - Synchronisation des filtres et du contexte
+   - Communication en temps réel via WebSocket
+4. **Monitoring**
+   - Metrics et logs centralisés avec Prometheus, Grafana et Loki
+
+---
+
 ## 🏗️ Architecture
 ```mermaid
 flowchart LR
@@ -70,27 +91,6 @@ flowchart LR
     M1 --> M2
     M3 --> M2
 ```
----
-
-## 🧩 Description
-
-Ce module fournit une **interface utilisateur complète** pour la plateforme de scoring/fraude.  
-Il regroupe :
-
-1. **Dashboard interactif** (User Story 5.1)
-   - Visualisation des scores, alertes et KPIs (fraude, AUC, latence)
-   - Export PDF/Excel
-2. **Chatbot conversationnel** (User Story 5.2)
-   - Interaction via Rasa ou Botpress
-   - Intents : demander score, alerte, rapport
-   - Multilingue (FR/EN)
-3. **Intégration Dashboard + Chatbot** (User Story 5.3)
-   - Chatbot accessible depuis le dashboard
-   - Synchronisation des filtres et du contexte
-   - Communication en temps réel via WebSocket
-4. **Monitoring**
-   - Metrics et logs centralisés avec Prometheus, Grafana et Loki
-
 ---
 
 ## ♻️ Flux globale du Module 
@@ -347,4 +347,67 @@ flowchart TD
     M1 --> M2
     M3 --> M2
 ```
+---
+## 🛠️ Installation
+**1️⃣ Prérequis**
 
+- Docker & Docker Compose
+- Node.js (pour dashboard React)
+- Python 3.9+ (pour API Gateway)
+- Helm/Kubernetes (optionnel pour déploiement en cluster)
+- Clé OpenAI (pour fonctionnalités chatbot avancées)
+
+**2️⃣ Variables d'environnement** 
+Crée un fichier ``.env`` :
+
+```env
+SCORING_API_URL=http://scoring-service:8080
+FRAUDE_API_URL=http://fraude-service:8080
+KEYCLOAK_URL=http://keycloak:8080
+OPENAI_API_KEY=your_openai_key
+```
+
+**3️⃣ Lancer l’environnement local**
+```bash
+docker-compose up --build
+```
+
+- Dashboard : ``http://localhost:3000``
+- Chatbot : intégré dans le dashboard
+- API Gateway : ``http://localhost:8000``
+- Grafana : ``http://localhost:3001``
+- Prometheus : ``http://localhost:9090``
+
+---
+
+## ⚙️ Utilisation
+
+**1. Dashboard**
+    - Visualiser KPIs, scores et alertes
+    - Export PDF/Excel via boutons intégrés
+
+**2. Chatbot**
+- Cliquer sur l’icône 💬 pour ouvrir le widget
+- Poser des questions sur :
+    - Votre score (``demander_score``)
+    - Les alertes (``demander_alerte``)
+    - Les rapports (``demander_rapport``)
+- Fonctionne en français et anglais
+
+**3. Interaction Dashboard ↔ Chatbot**
+- Les filtres appliqués dans le dashboard sont pris en compte par le chatbot
+- Le chatbot peut déclencher l’affichage de graphiques spécifiques
+
+---
+## 🧪 Tests
+
+- Tests conversationnels FR/EN dans ``chatbot_app/rasa_project/tests/``
+- Tests d’intégration Dashboard + Chatbot via API Gateway
+- Vérification logs et métriques dans Grafana
+
+📈 Suivi et monitoring
+
+- **Prometheus** : collecte métriques backend, dashboard et chatbot
+- **Grafana** : dashboards de supervision
+- **Loki** : centralisation des logs
+- **WebSocket** : suivi des interactions en temps réel
