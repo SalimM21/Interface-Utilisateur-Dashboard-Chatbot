@@ -1,4 +1,4 @@
-# Interface Utilisateur — Dashboard + Chatbot
+# 🤖 Interface Utilisateur — Dashboard + Chatbot
 
 ## 🏗️ Architecture
 ```mermaid
