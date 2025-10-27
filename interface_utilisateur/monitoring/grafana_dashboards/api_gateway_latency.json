@@ -1,0 +1,71 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "api_gateway_latency",
+    "title": "API Gateway - Temps de réponse",
+    "tags": ["api", "gateway", "latency", "monitoring"],
+    "timezone": "browser",
+    "schemaVersion": 36,
+    "version": 1,
+    "refresh": "15s",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Temps de réponse moyen (ms)",
+        "id": 1,
+        "targets": [
+          {
+            "expr": "api_gateway_request_latency_seconds_avg * 1000",
+            "legendFormat": "Moyenne",
+            "refId": "A"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxis": { "format": "ms" }
+      },
+      {
+        "type": "graph",
+        "title": "Temps de réponse 95ème percentile (ms)",
+        "id": 2,
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(api_gateway_request_latency_seconds_bucket[1m])) by (le)) * 1000",
+            "legendFormat": "P95",
+            "refId": "B"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxis": { "format": "ms" }
+      },
+      {
+        "type": "graph",
+        "title": "Temps de réponse 99ème percentile (ms)",
+        "id": 3,
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.99, sum(rate(api_gateway_request_latency_seconds_bucket[1m])) by (le)) * 1000",
+            "legendFormat": "P99",
+            "refId": "C"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxis": { "format": "ms" }
+      },
+      {
+        "type": "table",
+        "title": "Top endpoints les plus lents",
+        "id": 4,
+        "targets": [
+          {
+            "expr": "topk(10, rate(api_gateway_request_latency_seconds_sum[1m]) / rate(api_gateway_request_latency_seconds_count[1m]))",
+            "refId": "D"
+          }
+        ],
+        "columns": [
+          { "text": "Endpoint", "value": "label" },
+          { "text": "Latency (ms)", "value": "value" }
+        ]
+      }
+    ]
+  }
+}
