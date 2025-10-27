@@ -1,4 +1,3 @@
-# dashboard_routes.py
 # -------------------
 # Routes FastAPI pour le dashboard : KPIs, alertes, export PDF/Excel
 
