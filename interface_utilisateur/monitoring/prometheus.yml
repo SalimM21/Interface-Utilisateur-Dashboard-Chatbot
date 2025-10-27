@@ -1,0 +1,24 @@
+# Configuration globale de Prometheus
+global:
+  scrape_interval: 15s        # Intervalle par défaut pour scrapper les targets
+  evaluation_interval: 15s    # Intervalle pour évaluer les règles
+
+# Scraping des targets
+scrape_configs:
+  # Scraper l'API Gateway FastAPI (expose /metrics via prometheus_fastapi_instrumentator)
+  - job_name: 'api_gateway'
+    static_configs:
+      - targets: ['api-gateway:8000']  # Nom du service ou IP:port
+    metrics_path: /metrics
+
+  # Scraper le chatbot Rasa (expose /metrics si Rasa est instrumenté)
+  - job_name: 'rasa_chatbot'
+    static_configs:
+      - targets: ['rasa:5005']   # Nom du service ou IP:port
+    metrics_path: /metrics
+
+  # Scraper le Dashboard React (si métriques exposées via backend)
+  - job_name: 'dashboard'
+    static_configs:
+      - targets: ['dashboard:3000']
+    metrics_path: /metrics
