@@ -1,0 +1,34 @@
+# FastAPI framework
+fastapi==0.109.2
+
+# ASGI server
+uvicorn[standard]==0.23.2
+
+# Validation et modèles
+pydantic==2.5.2
+
+# Requêtes HTTP pour appels API internes et Rasa
+requests==2.32.0
+
+# JWT / OAuth2 / Keycloak
+python-jose==3.1.0
+python-multipart==0.0.6
+# passlib[bcrypt]==1.7.4
+
+# WebSocket
+websockets==11.0.3
+
+# Logging avancé
+loguru==0.7.0
+
+# Environnements et .env
+python-dotenv==1.0.0
+
+# MongoDB (pour Rasa Tracker)
+pymongo==4.15.3
+
+# CORS Middleware
+starlette
+
+# Test & Débogage
+pytest
