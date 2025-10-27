@@ -1,0 +1,49 @@
+version: "3.1"
+
+nlu:
+  - intent: ask_score
+    examples: |
+      - What is my current score?
+      - Show me my score
+      - I want to know my score
+      - Can you display my credit score?
+      - Score please
+
+  - intent: ask_alert
+    examples: |
+      - Do I have any alerts?
+      - Show me my alerts
+      - Are there any alerts for me?
+      - Recent alerts
+      - I want to see my alerts
+
+  - intent: ask_report
+    examples: |
+      - Generate a report
+      - I want a PDF report
+      - Export my data
+      - Can you create a report?
+      - I want to download my report
+
+  - intent: greet
+    examples: |
+      - Hello
+      - Hi
+      - Hey
+      - Good morning
+      - Good evening
+
+  - intent: goodbye
+    examples: |
+      - Goodbye
+      - See you later
+      - Bye
+      - Talk to you soon
+
+  - intent: thanks
+    examples: |
+      - Thank you
+      - Thanks a lot
+      - Thanks
+      - Thank you very much
+      - Appreciate it
