@@ -14,61 +14,8 @@ Ce module fournit une interface utilisateur complète permettant de visualiser l
 
 ---
 
-## 📁 Arborescence du projet
 ## 📊 Diagramme Architecture
 
-```mermaid
-graph TD
-    subgraph Frontend
-        A[Dashboard React] -->|REST/WS| B[API Gateway FastAPI]
-        A -->|Chat Widget| C[Rasa Chatbot]
-    end
-
-    subgraph Backend
-        B --> D[MongoDB]
-        B --> E[Keycloak]
-        C --> B
-        C --> D
-    end
-
-    subgraph Monitoring
-        B --> F[Prometheus]
-        A --> F
-        C --> F
-        B --> G[Loki Logs]
-        A --> G
-        C --> G
-        F --> H[Grafana Dashboards]
-        G --> H
-    end
-```
----
-```mermaid
-graph TD
-    subgraph Frontend
-        A[Dashboard React] -->|REST/WS| B[API Gateway FastAPI]
-        A -->|Chat Widget| C[Rasa Chatbot]
-    end
-
-    subgraph Backend
-        B --> D[MongoDB]
-        B --> E[Keycloak]
-        C --> B
-        C --> D
-    end
-
-    subgraph Monitoring
-        B --> F[Prometheus]
-        A --> F
-        C --> F
-        B --> G[Loki Logs]
-        A --> G
-        C --> G
-        F --> H[Grafana Dashboards]
-        G --> H
-    end
-```
----
 ```mermaid
 graph TD
     %% Frontend
@@ -99,16 +46,17 @@ graph TD
     end
 
     %% Flows
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#ffb,stroke:#333,stroke-width:2px
-    style E fill:#fbb,stroke:#333,stroke-width:2px
-    style F fill:#fbf,stroke:#333,stroke-width:2px
-    style G fill:#bff,stroke:#333,stroke-width:2px
-    style H fill:#fff,stroke:#333,stroke-width:2px
+    style A fill:#0072ff,stroke:#003366,stroke-width:2px,color:#222
+    style B fill:#3399ff,stroke:#003366,stroke-width:2px,color:#222
+    style C fill:#66ccff,stroke:#003366,stroke-width:2px,color:#222
+    style D fill:#66ffcc,stroke:#004d33,stroke-width:2px,color:#222
+    style E fill:#33cc99,stroke:#004d33,stroke-width:2px,color:#222
+    style F fill:#33ff66,stroke:#004d33,stroke-width:2px,color:#222
+    style G fill:#00ff66,stroke:#004d33,stroke-width:2px,color:#222
+    style H fill:#00cc33,stroke:#004d33,stroke-width:2px,color:#222
+
 ```
----
+
 ---
 
 ## ⚙️ Installation & Lancement
