@@ -1,0 +1,101 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "dashboard_kpis",
+    "title": "KPIs Scoring & Fraude",
+    "tags": ["dashboard", "kpis", "fraude", "scoring"],
+    "timezone": "browser",
+    "schemaVersion": 36,
+    "version": 1,
+    "refresh": "15s",
+    "panels": [
+      {
+        "type": "stat",
+        "title": "Taux de fraude",
+        "id": 1,
+        "targets": [
+          {
+            "expr": "kpi_fraud_rate",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "unit": "percent",
+          "colorMode": "value",
+          "graphMode": "none"
+        }
+      },
+      {
+        "type": "stat",
+        "title": "Temps de latence moyen (ms)",
+        "id": 2,
+        "targets": [
+          {
+            "expr": "kpi_avg_latency_ms",
+            "refId": "B"
+          }
+        ],
+        "options": {
+          "unit": "ms",
+          "colorMode": "value",
+          "graphMode": "none"
+        }
+      },
+      {
+        "type": "stat",
+        "title": "AUC modèle",
+        "id": 3,
+        "targets": [
+          {
+            "expr": "kpi_auc_score",
+            "refId": "C"
+          }
+        ],
+        "options": {
+          "unit": "none",
+          "colorMode": "value",
+          "graphMode": "none"
+        }
+      },
+      {
+        "type": "graph",
+        "title": "Evolution du taux de fraude",
+        "id": 4,
+        "targets": [
+          {
+            "expr": "kpi_fraud_rate",
+            "refId": "D"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxis": { "format": "percent" }
+      },
+      {
+        "type": "graph",
+        "title": "Evolution du temps de latence",
+        "id": 5,
+        "targets": [
+          {
+            "expr": "kpi_avg_latency_ms",
+            "refId": "E"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxis": { "format": "ms" }
+      },
+      {
+        "type": "graph",
+        "title": "Evolution AUC",
+        "id": 6,
+        "targets": [
+          {
+            "expr": "kpi_auc_score",
+            "refId": "F"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxis": { "format": "none" }
+      }
+    ]
+  }
+}
