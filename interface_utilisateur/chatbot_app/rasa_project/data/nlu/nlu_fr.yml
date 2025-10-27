@@ -1,0 +1,48 @@
+version: "3.1"
+
+nlu:
+  - intent: demander_score
+    examples: |
+      - Quel est mon score actuel ?
+      - Donne-moi mon score
+      - Je veux connaître mon score
+      - Affiche mon score
+      - Peux-tu me montrer mon score de crédit ?
+      - Score ?
+
+  - intent: demander_alerte
+    examples: |
+      - Ai-je des alertes ?
+      - Montre-moi les alertes
+      - Y a-t-il des alertes pour moi ?
+      - Alertes récentes
+      - Je veux voir mes alertes
+
+  - intent: demander_rapport
+    examples: |
+      - Génère un rapport
+      - Je veux un rapport PDF
+      - Exporter les données
+      - Peux-tu créer un rapport ?
+      - Je veux télécharger mon rapport
+
+  - intent: salutation
+    examples: |
+      - Bonjour
+      - Salut
+      - Coucou
+      - Bonsoir
+
+  - intent: au_revoir
+    examples: |
+      - Au revoir
+      - À bientôt
+      - Bye
+      - À la prochaine
+
+  - intent: merci
+    examples: |
+      - Merci
+      - Merci beaucoup
+      - Merci à toi
+      - Super, merci
