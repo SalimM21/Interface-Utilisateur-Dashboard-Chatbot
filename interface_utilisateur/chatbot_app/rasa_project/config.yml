@@ -1,0 +1,46 @@
+version: "3.1"
+
+# -----------------------------
+# Pipeline NLU
+# -----------------------------
+language: "fr"  # Langue par défaut (FR); utiliser "en" pour anglais ou adapter au multi-langue
+pipeline:
+  - name: WhitespaceTokenizer           # Tokenisation par espaces
+  - name: RegexFeaturizer               # Détecte patterns regex
+  - name: LexicalSyntacticFeaturizer    # Caractéristiques lexicales et syntaxiques
+  - name: CountVectorsFeaturizer        # Bag-of-words pour intents simples
+    analyzer: "word"
+  - name: CountVectorsFeaturizer        # Bag-of-words pour entités
+    analyzer: "char_wb"
+    min_ngram: 1
+    max_ngram: 4
+  - name: DIETClassifier                # Classificateur d’intents & entités
+    epochs: 100
+    constrain_similarities: true
+    random_seed: 42
+    batch_strategy: balanced
+  - name: EntitySynonymMapper           # Mapper des synonymes d’entités
+  - name: ResponseSelector              # Choix des réponses
+    epochs: 100
+  - name: FallbackClassifier            # Fallback si aucune intention claire
+    threshold: 0.7
+    ambiguity_threshold: 0.1
+
+# -----------------------------
+# Policies
+# -----------------------------
+policies:
+  - name: MemoizationPolicy              # Règles mémorisées
+    max_history: 5
+  - name: RulePolicy                     # Suivi des rules.yml
+    core_fallback_threshold: 0.4
+    core_fallback_action_name: "action_default_fallback"
+  - name: TEDPolicy                      # Transformer Embedding Dialogue pour conversations complexes
+    max_history: 5
+    epochs: 100
+    batch_size: 16
+  - name: UnexpecTEDPolicy               # Gestion des dialogues non attendus
+  - name: FallbackPolicy
+    nlu_threshold: 0.3
+    core_threshold: 0.3
+    fallback_action_name: "action_default_fallback"
