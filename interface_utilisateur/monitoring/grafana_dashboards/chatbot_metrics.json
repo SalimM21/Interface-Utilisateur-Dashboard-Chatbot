@@ -1,0 +1,70 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "chatbot_dashboard",
+    "title": "Chatbot Interactions",
+    "tags": ["chatbot", "Rasa", "metrics"],
+    "timezone": "browser",
+    "schemaVersion": 36,
+    "version": 1,
+    "refresh": "15s",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Nombre d'intents détectés",
+        "id": 1,
+        "targets": [
+          {
+            "expr": "rasa_intent_total",
+            "legendFormat": "{{intent}}",
+            "refId": "A"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxis": { "format": "short" }
+      },
+      {
+        "type": "graph",
+        "title": "Nombre de conversations actives",
+        "id": 2,
+        "targets": [
+          {
+            "expr": "rasa_active_conversations",
+            "refId": "B"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxis": { "format": "short" }
+      },
+      {
+        "type": "graph",
+        "title": "Taux d'échec des réponses (fallbacks)",
+        "id": 3,
+        "targets": [
+          {
+            "expr": "rasa_fallback_total / rasa_intent_total * 100",
+            "legendFormat": "Fallback %",
+            "refId": "C"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxis": { "format": "percent" }
+      },
+      {
+        "type": "table",
+        "title": "Top intents par volume",
+        "id": 4,
+        "targets": [
+          {
+            "expr": "topk(10, rasa_intent_total)",
+            "refId": "D"
+          }
+        ],
+        "columns": [
+          { "text": "Intent", "value": "label" },
+          { "text": "Nombre", "value": "value" }
+        ]
+      }
+    ]
+  }
+}
