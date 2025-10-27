@@ -1,0 +1,90 @@
+version: "3.1"
+
+# -----------------------------
+# Intents
+# -----------------------------
+intents:
+  - salutation
+  - au_revoir
+  - merci
+  - demander_score
+  - demander_alerte
+  - demander_rapport
+  - greet
+  - goodbye
+  - thanks
+  - nlu_fallback
+
+# -----------------------------
+# Entities
+# -----------------------------
+entities:
+  - user_id
+  - report_type
+  - date_range
+
+# -----------------------------
+# Slots
+# -----------------------------
+slots:
+  user_id:
+    type: text
+    influence_conversation: false
+  report_type:
+    type: text
+    influence_conversation: false
+  date_range:
+    type: text
+    influence_conversation: false
+
+# -----------------------------
+# Actions
+# -----------------------------
+actions:
+  - action_get_score
+  - action_get_alerts
+  - action_generate_report
+  - action_default_fallback
+
+# -----------------------------
+# Responses (utterances)
+# -----------------------------
+responses:
+  utter_greet:
+    - text: "Bonjour ! Comment puis-je vous aider ?"
+  utter_goodbye:
+    - text: "Au revoir ! Passez une bonne journée."
+  utter_you_are_welcome:
+    - text: "Avec plaisir !"
+  utter_score_response:
+    - text: "Voici votre score : {score}"
+  utter_alerts_response:
+    - text: "Voici vos alertes :\n{alerts}"
+  utter_report_response:
+    - text: "Votre rapport est prêt : {report_link}"
+  utter_default:
+    - text: "Désolé, je n'ai pas compris. Vous pouvez demander votre score, vos alertes ou générer un rapport."
+
+# -----------------------------
+# Configuration des forms (optionnel)
+# -----------------------------
+forms: []
+
+# -----------------------------
+# Multilingual (FR/EN)
+# -----------------------------
+responses_en:
+  utter_greet:
+    - text: "Hello! How can I help you?"
+  utter_goodbye:
+    - text: "Goodbye! Have a great day."
+  utter_you_are_welcome:
+    - text: "You're welcome!"
+  utter_score_response:
+    - text: "Here is your score: {score}"
+  utter_alerts_response:
+    - text: "Here are your alerts:\n{alerts}"
+  utter_report_response:
+    - text: "Your report is ready: {report_link}"
+  utter_default:
+    - text: "Sorry, I didn't understand. You can ask for your score, alerts, or generate a report."
