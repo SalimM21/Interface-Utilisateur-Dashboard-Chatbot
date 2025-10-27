@@ -1,0 +1,138 @@
+/* dashboard.css
+-----------------
+Styles globaux pour le tableau de bord et les composants UI */
+
+/* Body et background général */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb; /* couleur de fond globale */
+  color: #111827; /* texte principal */
+  margin: 0;
+  padding: 0;
+}
+
+/* Liens */
+a {
+  color: #3b82f6; /* bleu primaire */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Boutons globaux */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 0.5rem; /* 2xl rounded */
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Titres */
+h1, h2, h3, h4, h5, h6 {
+  color: #111827;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Cartes / Cards */
+.card {
+  background-color: #ffffff;
+  border-radius: 1rem; /* 2xl */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #f3f4f6; /* gris clair */
+  color: #111827;
+  font-weight: 600;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb; /* gris clair */
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #ffffff;
+  width: 250px;
+  min-height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+}
+
+/* Header */
+.header {
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Loader / Spinner */
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader .spinner {
+  border: 4px solid #3b82f6; /* bleu */
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+}
+
+.loader p {
+  margin-top: 1rem;
+  color: #6b7280; /* texte secondaire */
+  font-weight: 500;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Export buttons */
+.export-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Chatbot Widget */
+.chatbot-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 350px;
+  height: 500px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
