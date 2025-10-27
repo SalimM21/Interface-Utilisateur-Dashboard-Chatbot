@@ -1,0 +1,72 @@
+version: "3.1"
+
+tests:
+
+  # -----------------------------
+  # Greetings
+  - intent: greet
+    examples: |
+      - hello
+      - hi
+      - hey
+      - good morning
+      - good evening
+
+  # -----------------------------
+  # Goodbye
+  - intent: goodbye
+    examples: |
+      - goodbye
+      - bye
+      - see you later
+      - see you soon
+      - talk to you later
+
+  # -----------------------------
+  # Thanks
+  - intent: thanks
+    examples: |
+      - thanks
+      - thank you
+      - thank you very much
+      - much appreciated
+      - thanks a lot
+
+  # -----------------------------
+  # Ask score
+  - intent: ask_score
+    examples: |
+      - what is my score?
+      - can you give me my score?
+      - I want to know my score
+      - show me my current score
+      - display my score
+
+  # -----------------------------
+  # Ask alerts
+  - intent: ask_alerts
+    examples: |
+      - what are my alerts?
+      - show me my alerts
+      - any alerts for me?
+      - I want to see my alerts
+      - list my alerts
+
+  # -----------------------------
+  # Ask report
+  - intent: ask_report
+    examples: |
+      - can you generate a report?
+      - I want a PDF report
+      - create my report
+      - export my data
+      - Excel report please
+
+  # -----------------------------
+  # Fallback / unknown
+  - intent: nlu_fallback
+    examples: |
+      - blabla
+      - unknown test
+      - this makes no sense
+      - abcd
