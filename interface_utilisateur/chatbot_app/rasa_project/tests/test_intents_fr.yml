@@ -1,0 +1,70 @@
+version: "3.1"
+
+tests:
+
+  # -----------------------------
+  # Salutations
+  - intent: salutation
+    examples: |
+      - bonjour
+      - salut
+      - coucou
+      - bonsoir
+      - hello (FR)
+
+  # -----------------------------
+  # Au revoir
+  - intent: au_revoir
+    examples: |
+      - au revoir
+      - bye
+      - à bientôt
+      - à la prochaine
+
+  # -----------------------------
+  # Remerciements
+  - intent: merci
+    examples: |
+      - merci
+      - merci beaucoup
+      - je te remercie
+      - c’est gentil
+
+  # -----------------------------
+  # Demande de score
+  - intent: demander_score
+    examples: |
+      - quel est mon score ?
+      - peux-tu me donner mon score ?
+      - je veux connaître mon score
+      - montre-moi mon score actuel
+      - afficher mon score
+
+  # -----------------------------
+  # Demande d'alerte
+  - intent: demander_alerte
+    examples: |
+      - quelles sont mes alertes ?
+      - montre-moi mes alertes
+      - y a-t-il des alertes ?
+      - je veux voir mes alertes
+      - lister mes alertes
+
+  # -----------------------------
+  # Demande de rapport
+  - intent: demander_rapport
+    examples: |
+      - peux-tu générer un rapport ?
+      - je veux un rapport PDF
+      - créer mon rapport
+      - exporter mes données
+      - rapport Excel s'il te plaît
+
+  # -----------------------------
+  # Fallback / non compris
+  - intent: nlu_fallback
+    examples: |
+      - blabla
+      - test inconnu
+      - ceci n'a pas de sens
+      - abcd
