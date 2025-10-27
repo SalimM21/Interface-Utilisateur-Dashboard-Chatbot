@@ -1,0 +1,49 @@
+# endpoints.yml
+# -------------------
+# Configuration des endpoints pour Rasa
+
+# -----------------------------
+# Serveur d’actions personnalisées
+action_endpoint:
+  url: "http://localhost:5055/webhook"  # URL du serveur Rasa Actions
+
+# -----------------------------
+# Tracker Store (MongoDB pour persistance des conversations)
+tracker_store:
+  type: mongo
+  url: "localhost"
+  db: "rasa_db"
+  username: "rasa_user"
+  password: "rasa_password"
+  auth_source: "admin"
+  ssl: false
+
+# -----------------------------
+# Event Broker (optionnel, Kafka / RabbitMQ)
+event_broker:
+  type: kafka
+  url: "localhost:9092"
+  topic: "rasa-events"
+  username: ""
+  password: ""
+  sasl_mechanism: ""
+  security_protocol: ""
+
+# -----------------------------
+# Model Server (optionnel)
+model:
+  url: "http://localhost:5002"  # Serveur externe pour héberger les modèles
+
+# -----------------------------
+# Webhooks pour intégration externe (Slack, Messenger, etc.)
+# Exemple Slack
+slack:
+  verify_token: "VOTRE_SLACK_VERIFICATION_TOKEN"
+  slack_token: "xoxb-xxxxxxxxxxxxxxxxxxxxxxxx"
+
+# -----------------------------
+# Notes
+# - Rasa utilisera `action_endpoint` pour exécuter les actions Python.
+# - `tracker_store` permet de stocker les conversations et historiques.
+# - `event_broker` permet de streamer les événements pour monitoring / analytics.
+# - Webhooks externes sont utilisés pour intégrer le chatbot sur différents canaux.
