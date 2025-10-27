@@ -1,0 +1,144 @@
+version: '3.9'
+
+services:
+
+  # ========================
+  # API Gateway FastAPI
+  # ========================
+  api_gateway:
+    build:
+      context: ./interface_utilisateur/api_gateway
+      dockerfile: Dockerfile
+    container_name: api_gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=production
+      - MONGO_URI=mongodb://mongo:27017/dashboard
+      - KEYCLOAK_URL=http://keycloak:8080
+    depends_on:
+      - mongo
+      - keycloak
+    networks:
+      - dashboard_net
+
+  # ========================
+  # MongoDB
+  # ========================
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - dashboard_net
+
+  # ========================
+  # Keycloak (Auth)
+  # ========================
+  keycloak:
+    image: quay.io/keycloak/keycloak:21.1.1
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    command: start-dev
+    ports:
+      - "8080:8080"
+    networks:
+      - dashboard_net
+
+  # ========================
+  # Dashboard React
+  # ========================
+  dashboard:
+    build:
+      context: ./interface_utilisateur/dashboard_frontend
+      dockerfile: Dockerfile
+    container_name: dashboard
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api_gateway
+    networks:
+      - dashboard_net
+
+  # ========================
+  # Rasa Chatbot
+  # ========================
+  rasa:
+    build:
+      context: ./interface_utilisateur/chatbot
+      dockerfile: Dockerfile
+    container_name: rasa
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./interface_utilisateur/chatbot:/app
+    command: >
+      run
+      --enable-api
+      --cors "*"
+      --debug
+    depends_on:
+      - api_gateway
+    networks:
+      - dashboard_net
+
+  # ========================
+  # Prometheus
+  # ========================
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - dashboard_net
+
+  # ========================
+  # Grafana
+  # ========================
+  grafana:
+    image: grafana/grafana:10.1.3
+    container_name: grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+      - loki
+    networks:
+      - dashboard_net
+
+  # ========================
+  # Loki (Logs centralisés)
+  # ========================
+  loki:
+    image: grafana/loki:2.9.0
+    container_name: loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./monitoring/loki_config.yml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - dashboard_net
+
+volumes:
+  mongo_data:
+  grafana_data:
+
+networks:
+  dashboard_net:
+    driver: bridge
