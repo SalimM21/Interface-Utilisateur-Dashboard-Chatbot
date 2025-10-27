@@ -1,0 +1,81 @@
+version: "3.1"
+
+stories:
+
+  # -----------------------------
+  # Salut / Bonjour
+  - story: salutation_fr
+    steps:
+      - intent: salutation
+      - action: utter_greet
+
+  - story: salutation_en
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  # -----------------------------
+  # Demande de score
+  - story: demander_score_fr
+    steps:
+      - intent: demander_score
+      - action: action_get_score
+      - action: utter_score_response
+
+  - story: ask_score_en
+    steps:
+      - intent: ask_score
+      - action: action_get_score
+      - action: utter_score_response
+
+  # -----------------------------
+  # Demande d'alerte
+  - story: demander_alerte_fr
+    steps:
+      - intent: demander_alerte
+      - action: action_get_alerts
+      - action: utter_alerts_response
+
+  - story: ask_alert_en
+    steps:
+      - intent: ask_alert
+      - action: action_get_alerts
+      - action: utter_alerts_response
+
+  # -----------------------------
+  # Demande de rapport
+  - story: demander_rapport_fr
+    steps:
+      - intent: demander_rapport
+      - action: action_generate_report
+      - action: utter_report_response
+
+  - story: ask_report_en
+    steps:
+      - intent: ask_report
+      - action: action_generate_report
+      - action: utter_report_response
+
+  # -----------------------------
+  # Remerciements / fin de conversation
+  - story: merci_fr
+    steps:
+      - intent: merci
+      - action: utter_you_are_welcome
+
+  - story: thanks_en
+    steps:
+      - intent: thanks
+      - action: utter_you_are_welcome
+
+  # -----------------------------
+  # Au revoir
+  - story: au_revoir_fr
+    steps:
+      - intent: au_revoir
+      - action: utter_goodbye
+
+  - story: goodbye_en
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
