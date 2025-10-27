@@ -411,3 +411,4 @@ docker-compose up --build
 - **Grafana** : dashboards de supervision
 - **Loki** : centralisation des logs
 - **WebSocket** : suivi des interactions en temps réel
+
