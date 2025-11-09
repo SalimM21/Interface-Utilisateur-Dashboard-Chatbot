@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-import KPI_Cards from "./KPI_Cards";
-import AlertsTable from "./AlertsTable";
-import ScoreTrendsChart from "./ScoreTrendsChart";
-import ExportButtons from "./ExportButtons";
-import ChatbotWidget from "./ChatbotWidget";
-import Loader from "./Loader";
-import { Card, CardContent } from "@/components/ui/card";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import KPI_Cards from "../components/KPI_Cards";
+import AlertsTable from "../components/AlertsTable";
+import ScoreTrendsChart from "../components/ScoreTrendsChart";
+import ExportButtons from "../components/ExportButtons";
+import ChatbotWidget from "../components/ChatbotWidget";
+import Loader from "../components/Loader";
+import { Card, CardContent } from "../components/ui/card";
 
 /**
  * -----------------

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
-import ExportButtons from "./ExportButtons";
-import Loader from "./Loader";
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
+import ExportButtons from "../components/ExportButtons";
+import Loader from "../components/Loader";
 
 /**
  * ----------------

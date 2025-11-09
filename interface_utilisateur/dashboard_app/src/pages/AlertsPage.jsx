@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
-import AlertsTable from "./AlertsTable";
-import Loader from "./Loader";
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
+import AlertsTable from "../components/AlertsTable";
+import Loader from "../components/Loader";
 
 /**
  * --------------

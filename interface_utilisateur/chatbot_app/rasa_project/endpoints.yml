@@ -1,28 +1,27 @@
 # endpoints.yml
 # -------------------
-# Configuration des endpoints pour Rasa
+# Configuration des endpoints pour Rasa (adapté pour Docker)
 
 # -----------------------------
-# Serveur d’actions personnalisées
+# Serveur d'actions personnalisées (nom de service Docker)
 action_endpoint:
-  url: "http://localhost:5055/webhook"  # URL du serveur Rasa Actions
+  url: "http://rasa-actions:5055/webhook"  # URL du serveur Rasa Actions dans Docker
 
 # -----------------------------
 # Tracker Store (MongoDB pour persistance des conversations)
 tracker_store:
+  # Use MongoDB without authentication (matches the mongo service in docker-compose).
+  # Keep this minimal: if your Mongo runs with auth, add username/password here.
   type: mongo
-  url: "localhost"
+  url: "mongo:27017"
   db: "rasa_db"
-  username: "rasa_user"
-  password: "rasa_password"
-  auth_source: "admin"
   ssl: false
 
 # -----------------------------
 # Event Broker (optionnel, Kafka / RabbitMQ)
 event_broker:
   type: kafka
-  url: "localhost:9092"
+  url: "kafka:9092"
   topic: "rasa-events"
   username: ""
   password: ""
@@ -32,7 +31,7 @@ event_broker:
 # -----------------------------
 # Model Server (optionnel)
 model:
-  url: "http://localhost:5002"  # Serveur externe pour héberger les modèles
+  url: "http://rasa-model:5002"  # Serveur externe pour héberger les modèles
 
 # -----------------------------
 # Webhooks pour intégration externe (Slack, Messenger, etc.)

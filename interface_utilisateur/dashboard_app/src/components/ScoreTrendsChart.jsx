@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardContent } from "./ui/card";
 import {
   LineChart,
   Line,

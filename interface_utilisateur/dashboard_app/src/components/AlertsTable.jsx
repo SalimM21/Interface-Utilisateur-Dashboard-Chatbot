@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
+import { Card, CardHeader, CardContent } from "./ui/card";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./ui/table";
 import { AlertTriangle, CheckCircle, Clock } from "lucide-react";
 
 const AlertsTable = () => {

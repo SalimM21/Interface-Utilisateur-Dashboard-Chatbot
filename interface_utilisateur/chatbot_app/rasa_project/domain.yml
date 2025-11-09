@@ -14,6 +14,9 @@ intents:
   - goodbye
   - thanks
   - nlu_fallback
+  - ask_score
+  - ask_alert
+  - ask_report
 
 # -----------------------------
 # Entities
@@ -30,12 +33,21 @@ slots:
   user_id:
     type: text
     influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: user_id
   report_type:
     type: text
     influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: report_type
   date_range:
     type: text
     influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: date_range
 
 # -----------------------------
 # Actions
@@ -68,7 +80,18 @@ responses:
 # -----------------------------
 # Configuration des forms (optionnel)
 # -----------------------------
-forms: []
+forms:
+  score_form:
+    required_slots:
+      - user_id
+  alerts_form:
+    required_slots:
+      - user_id
+  report_form:
+    required_slots:
+      - user_id
+      - report_type
+      - date_range
 
 # -----------------------------
 # Multilingual (FR/EN)

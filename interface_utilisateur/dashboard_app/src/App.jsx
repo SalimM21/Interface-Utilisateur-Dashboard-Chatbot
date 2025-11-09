@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 
 import { initKeycloak, getUserInfo } from "./authService";
 import { lightTheme, darkTheme, applyTheme, toggleTheme } from "./theme";
+import "./dashboard.css";
 
-import DashboardPage from "./DashboardPage";
-import AlertsPage from "./AlertsPage";
-import ReportsPage from "./ReportsPage";
-import ChatbotWidget from "./ChatbotWidget";
+import DashboardPage from "./pages/DashboardPage";
+import AlertsPage from "./pages/AlertsPage";
+import ReportsPage from "./pages/ReportsPage";
+import ChatbotWidget from "./components/ChatbotWidget";
 
 /**
  * --------

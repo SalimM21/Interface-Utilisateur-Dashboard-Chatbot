@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "./ui/button";
 import { FileSpreadsheet, FileText } from "lucide-react";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";

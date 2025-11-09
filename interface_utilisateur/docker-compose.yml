@@ -7,15 +7,16 @@ services:
   # ========================
   api_gateway:
     build:
-      context: ./interface_utilisateur/api_gateway
+      context: ./api_gateway
       dockerfile: Dockerfile
     container_name: api_gateway
     ports:
-      - "8000:8000"
+      - "8001:8000" # changed host port to 8001 to avoid conflicts on the host
     environment:
       - ENV=production
       - MONGO_URI=mongodb://mongo:27017/dashboard
       - KEYCLOAK_URL=http://keycloak:8080
+      - RASA_URL=http://rasa:5005/webhooks/rest/webhook
     depends_on:
       - mongo
       - keycloak
@@ -55,11 +56,11 @@ services:
   # ========================
   dashboard:
     build:
-      context: ./interface_utilisateur/dashboard_frontend
+      context: ./dashboard_app
       dockerfile: Dockerfile
     container_name: dashboard
     ports:
-      - "3000:3000"
+      - "3000:80" # map host 3000 to nginx container port 80 (serveur static)
     depends_on:
       - api_gateway
     networks:
@@ -70,13 +71,13 @@ services:
   # ========================
   rasa:
     build:
-      context: ./interface_utilisateur/chatbot
+      context: ./chatbot_app
       dockerfile: Dockerfile
     container_name: rasa
     ports:
       - "5005:5005"
     volumes:
-      - ./interface_utilisateur/chatbot:/app
+        - ./chatbot_app/rasa_project:/app
     command: >
       run
       --enable-api
@@ -86,6 +87,36 @@ services:
       - api_gateway
     networks:
       - dashboard_net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://127.0.0.1:5005/status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # ========================
+  # Rasa Actions Server
+  # ========================
+  rasa-actions:
+    image: rasa/rasa:3.6.14
+    container_name: rasa-actions
+    volumes:
+      - ./chatbot_app/rasa_project/actions:/app/actions
+    ports:
+      - "5055:5055"
+    command: >
+      run
+      actions
+      --actions actions
+      --port 5055
+    networks:
+      - dashboard_net
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import socket,sys; s=socket.socket(); s.settimeout(2); sys.exit(0 if s.connect_ex(('127.0.0.1',5055))==0 else 1)\""]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   # ========================
   # Prometheus
@@ -104,7 +135,7 @@ services:
   # Grafana
   # ========================
   grafana:
-    image: grafana/grafana:10.1.3
+    image: grafana/grafana:latest
     container_name: grafana
     ports:
       - "3001:3000"
