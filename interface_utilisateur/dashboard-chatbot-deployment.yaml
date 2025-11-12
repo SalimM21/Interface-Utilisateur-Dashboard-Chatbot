@@ -29,11 +29,11 @@ spec:
           value: "http://rasa-service:5005/webhooks/rest/webhook"
         resources:
           requests:
-            memory: "256Mi"
-            cpu: "250m"
+            memory: "64Mi"
+            cpu: "50m"
           limits:
-            memory: "512Mi"
-            cpu: "500m"
+            memory: "128Mi"
+            cpu: "100m"
 ---
 apiVersion: v1
 kind: Service
@@ -71,11 +71,11 @@ spec:
         - containerPort: 80
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: "32Mi"
+            cpu: "25m"
           limits:
-            memory: "256Mi"
-            cpu: "200m"
+            memory: "64Mi"
+            cpu: "50m"
 ---
 apiVersion: v1
 kind: Service
@@ -108,17 +108,17 @@ spec:
     spec:
       containers:
       - name: rasa
-        image: rasa:latest  # À construire depuis le Dockerfile
+        image: rasa/rasa:3.0.0-full
         ports:
         - containerPort: 5005
         command: ["run", "--enable-api", "--cors", "*", "--debug"]
         resources:
           requests:
-            memory: "512Mi"
-            cpu: "250m"
+            memory: "32Mi"
+            cpu: "25m"
           limits:
-            memory: "1Gi"
-            cpu: "500m"
+            memory: "64Mi"
+            cpu: "50m"
 ---
 apiVersion: v1
 kind: Service
